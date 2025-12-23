@@ -34,11 +34,11 @@ class UserFactory extends Factory
             'company_name' => fake()->company(),
             'description' => fake()->paragraph(),
             'address' => fake()->address(),
-            'services' => json_encode([
+            'services' => [
                 ['description' => fake()->sentence()],
                 ['description' => fake()->sentence()],
                 ['description' => fake()->sentence()],
-            ]),
+            ],
             'phone' => fake()->phoneNumber(),
             'website' => fake()->url(),
         ];

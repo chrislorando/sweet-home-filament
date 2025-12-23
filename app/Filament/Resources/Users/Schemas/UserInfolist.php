@@ -93,7 +93,7 @@ class UserInfolist
                                     ->hiddenLabel()
                                     ->contained(false)
                                     ->columns(1)
-                                    ->visible(fn ($record) => ! empty($record->services))
+                                    ->visible(fn ($record) => ! empty($record->services) && \is_array($record->services))
                                     ->schema([
                                         TextEntry::make('description')
                                             ->icon(Heroicon::ChevronRight)
