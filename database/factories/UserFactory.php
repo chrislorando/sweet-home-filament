@@ -31,6 +31,16 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'slug' => Str::slug($title).'-'.fake()->unique()->numberBetween(1000, 9999),
+            'company_name' => fake()->company(),
+            'description' => fake()->paragraph(),
+            'address' => fake()->address(),
+            'services' => json_encode([
+                ['description' => fake()->sentence()],
+                ['description' => fake()->sentence()],
+                ['description' => fake()->sentence()],
+            ]),
+            'phone' => fake()->phoneNumber(),
+            'website' => fake()->url(),
         ];
     }
 
