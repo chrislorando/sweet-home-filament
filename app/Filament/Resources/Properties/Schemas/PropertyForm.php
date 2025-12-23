@@ -284,9 +284,11 @@ class PropertyForm
                                     ->directory('properties')
                                     ->required()
                                     ->columnSpanFull()
-                                    ->afterStateHydrated(function ($component, $state) {
-                                        // Skip validation untuk URL eksternal
-                                        if (is_string($state) && filter_var($state, FILTER_VALIDATE_URL)) {
+                                    ->loadStateFromRelationshipsUsing(function (FileUpload $component, $state) {
+                                        try {
+                                            $component->state($state);
+                                        } catch (\League\Flysystem\UnableToCheckDirectoryExistence $e) {
+                                            // Skip error untuk file yang tidak ada di S3
                                             $component->state(null);
                                         }
                                     }),
