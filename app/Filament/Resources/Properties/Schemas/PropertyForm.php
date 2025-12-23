@@ -277,21 +277,22 @@ class PropertyForm
                     ->schema([
                         Repeater::make('images')
                             ->relationship()
+                            ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                                // Filter out picsum URLs
+                                foreach ($data as $key => $item) {
+                                    if (isset($item['path']) && str_contains($item['path'], 'picsum.photos')) {
+                                        unset($data[$key]);
+                                    }
+                                }
+                                return array_values($data);
+                            })
                             ->schema([
                                 FileUpload::make('path')
                                     ->label('Image')
                                     ->image()
                                     ->directory('properties')
                                     ->required()
-                                    ->columnSpanFull()
-                                    ->loadStateFromRelationshipsUsing(function (FileUpload $component, $state) {
-                                        try {
-                                            $component->state($state);
-                                        } catch (\League\Flysystem\UnableToCheckDirectoryExistence $e) {
-                                            // Skip error untuk file yang tidak ada di S3
-                                            $component->state(null);
-                                        }
-                                    }),
+                                    ->columnSpanFull(),
                             ])
                             ->grid(3)
                             ->defaultItems(3)

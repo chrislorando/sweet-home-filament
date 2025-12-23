@@ -254,6 +254,15 @@ class PropertyForm
                         ->schema([
                             Repeater::make('images')
                                 ->relationship()
+                                ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                                    // Filter out picsum URLs
+                                    foreach ($data as $key => $item) {
+                                        if (isset($item['path']) && str_contains($item['path'], 'picsum.photos')) {
+                                            unset($data[$key]);
+                                        }
+                                    }
+                                    return array_values($data);
+                                })
                                 ->schema([
                                     FileUpload::make('path')
                                         ->label('Image')
