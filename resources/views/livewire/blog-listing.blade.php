@@ -27,7 +27,7 @@
         @if($posts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 @foreach($posts as $post)
-                    <a href="{{ route('blog.show', $post->slug) }}" wire:navigate class="block group">
+                    <a href="{{ route('blog.show', $post->slug) }}"  class="block group">
                         <article>
                             <div class="relative h-64 rounded-2xl overflow-hidden mb-6">
                                 @if($post->image)

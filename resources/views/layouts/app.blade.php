@@ -114,6 +114,8 @@
         @filamentScripts
         @vite('resources/js/app.js')
     @livewireScripts
+
+    @stack('scripts')
 </body>
 
 </html>

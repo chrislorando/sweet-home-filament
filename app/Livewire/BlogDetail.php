@@ -10,6 +10,7 @@ use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\TextSize;
 use Livewire\Component;
+use Str;
 
 class BlogDetail extends Component implements HasSchemas
 {
@@ -34,8 +35,9 @@ class BlogDetail extends Component implements HasSchemas
                     ->schema([
                         TextEntry::make('content')
                             ->hiddenLabel()
+                            // ->formatStateUsing(fn($state) => Str::markdown($state))
                             ->markdown()
-                            // ->prose()
+                            ->prose()
                             ->size(TextSize::Large)
                             ->columnSpanFull()
                             ->extraAttributes(['class' => 'p-6 md:p-8']),

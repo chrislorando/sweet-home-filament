@@ -62,7 +62,7 @@
                                 @endif
                             </div>
 
-                            @if($agent->services)
+                            @if($agent->services && is_array($agent->services) && count($agent->services) > 0)
                                 <div class="mt-6">
                                     <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">Services</h3>
                                     <div class="flex flex-wrap gap-2">
