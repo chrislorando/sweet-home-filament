@@ -276,16 +276,11 @@ class PropertyForm
                     ->icon('heroicon-o-photo')
                     ->schema([
                         Repeater::make('images')
-                            ->relationship()
-                            ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                                // Filter out picsum URLs
-                                foreach ($data as $key => $item) {
-                                    if (isset($item['path']) && str_contains($item['path'], 'picsum.photos')) {
-                                        unset($data[$key]);
-                                    }
-                                }
-                                return array_values($data);
-                            })
+                            ->relationship(
+                                modifyQueryUsing: fn ($query) => 
+                                    $query->where('path', 'NOT LIKE', '%picsum.photos%')
+                                        ->orWhereNull('path')
+                            )
                             ->schema([
                                 FileUpload::make('path')
                                     ->label('Image')
