@@ -283,6 +283,7 @@ class PropertyForm
                                     ->image()
                                     ->directory('properties')
                                     ->required()
+                                    ->visibility('private')
                                     ->columnSpanFull(),
                             ])
                             ->grid(3)
