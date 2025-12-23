@@ -283,8 +283,13 @@ class PropertyForm
                                     ->image()
                                     ->directory('properties')
                                     ->required()
-                                    ->visibility('private')
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->afterStateHydrated(function ($component, $state) {
+                                        // Skip validation untuk URL eksternal
+                                        if (is_string($state) && filter_var($state, FILTER_VALIDATE_URL)) {
+                                            $component->state(null);
+                                        }
+                                    }),
                             ])
                             ->grid(3)
                             ->defaultItems(3)
